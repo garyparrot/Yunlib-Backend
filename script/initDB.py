@@ -24,4 +24,4 @@ def init(filename):
 
 if __name__ == "__main__":
     filename = input("Path to resource.ini: ")
-    initDB(filename)
+    init(filename)

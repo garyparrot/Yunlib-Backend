@@ -72,4 +72,4 @@ def create_slots(label_array , text_array, data_array, x_array, y_array , size_x
 
 if __name__ == "__main__":
     filename = input("Path to resource.ini: ")
-    initBot(filename)
+    init(filename)
