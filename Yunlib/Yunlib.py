@@ -36,7 +36,6 @@ class Yunlib:
 
         return func
 
-    #  TODO: garyparrot # Implement onPostbackReceive
     def onPostbackReceive(self,func):
 
         @self.handler.add(PostbackEvent)
@@ -44,7 +43,6 @@ class Yunlib:
             return func(event.source.user_id, event.reply_token, event.postback.data)
 
         return func
-    #  TODO: garyparrot # Implement onUserFollowing
     def onUserFollow(self,func):
 
         @self.handler.add(FollowEvent)
@@ -52,7 +50,6 @@ class Yunlib:
             return func(event.source.user_id, event.reply_token)
 
         return func
-    #  TODO: garyparrot # Implement onUserUnfollow
     def onUserUnfollow(self,func):
 
         @self.handler.add(UnfollowEvent)
