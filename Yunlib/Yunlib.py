@@ -74,7 +74,21 @@ class Yunlib:
         message = FlexSendMessage(alt_text=alt_text, contents = render)
         self.linebot.reply_message(reply_token, message)
 
-    #  TODO: garyparrot # Implement ChangeUserRichMenu
+    def changeRichMenu(self, user_id, menu_name):
+        if not hasattr(self,'_rich_menus'):
+            self._rich_menus = self.linebot.get_rich_menu_list()
+
+        target = [i for i in self._rich_menus  if i.name == menu_name][0]
+        self.linebot.link_rich_menu_to_user(user_id, target.rich_menu_id)
+
+    def updateNotificationSetting(self, user_id, boolval):
+        try:
+            self.database.userinfo.update_notify(user_id, boolval)
+            menu_name = resource.NotifyMenuName if boolval else resource.NNotifyMenuName
+            self.changeRichMenu(user_id, menu_name)
+        except Exception as e:
+            raise e
+
 
 class RequestUrl:
     @classmethod
@@ -97,3 +111,4 @@ class RequestUrl:
     @classmethod
     def touch(cls):
         return flask.Response('ok', 200)
+

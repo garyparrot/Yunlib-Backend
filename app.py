@@ -43,6 +43,10 @@ def postback(user_id, reply_token, data):
         app.replyBookList(reply_token,example)
     elif data == resource.Postback_AboutUs:
         app.pushBookList(user_id,example)
+    elif data == resource.Postback_NotifyEnable:
+        app.updateNotificationSetting(user_id, True)
+    elif data == resource.Postback_NotifyDisable:
+        app.updateNotificationSetting(user_id, False)
 
 @app.onUserFollow
 def say_welcome(user_id, reply_token):
@@ -51,3 +55,4 @@ def say_welcome(user_id, reply_token):
 @app.onUserUnfollow
 def shit(user_id):
     print("user", user_id, "doesn't love you.")
+
