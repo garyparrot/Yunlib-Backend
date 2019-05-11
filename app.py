@@ -59,6 +59,8 @@ def postback(user_id, reply_token, data):
 def say_welcome(user_id, reply_token):
     """ Trigger this function when user follow this bot """
     app.pushText(user_id,"Welcome to hell!")
+    app.database.userinfo.insert(user_id)
+    app.updateNotificationSetting(user_id, True)
 
 @app.onUserUnfollow
 def shit(user_id):
