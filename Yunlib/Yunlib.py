@@ -11,6 +11,7 @@ from linebot import WebhookHandler
 from .db import db
 from . import resource 
 from .resource import ConfigLoader
+from .models.BookList_Render import BookListRender
 
 class Yunlib:
 
@@ -57,10 +58,22 @@ class Yunlib:
             return func(event.source.user_id)
 
         return func
-    #  TODO: garyparrot # Implement PushTextMessage
-    #  TODO: garyparrot # Implement PushBookList
-    #  TODO: garyparrot # Implement ReplyTextMessage
-    #  TODO: garyparrot # Implement ReplyBookList
+    def pushText(self,user_id, message):
+        self.linebot.push_message(user_id, TextSendMessage(text=message))
+
+    def pushBookList(self, user_id, booklist, alt_text='[Book list]'):
+        render = BookListRender(booklist).Render()
+        message = FlexSendMessage(alt_text=alt_text, contents = render)
+        self.linebot.push_message(user_id, message)
+
+    def replyText(self,reply_token,message):
+        self.linebot.reply_message(reply_token, TextSendMessage(text=message))
+
+    def replyBookList(self, reply_token, booklist, alt_text='[Book list]'):
+        render = BookListRender(booklist).Render()
+        message = FlexSendMessage(alt_text=alt_text, contents = render)
+        self.linebot.reply_message(reply_token, message)
+
     #  TODO: garyparrot # Implement ChangeUserRichMenu
 
 class RequestUrl:

@@ -66,15 +66,15 @@ separator_style = {
         "margin": "md"
         }
 
-class BookStatRender:
+class BookListRender:
 
     def __init__(self, statistic_data):
         self.data = statistic_data
 
     def Render(self):
-        return self.RenderBookStat()
+        return self.RenderBookList()
 
-    def RenderBookStat(self):
+    def RenderBookList(self):
         return BubbleContainer(
                 body   = self.RenderBody(),
                 footer = self.RenderFooter(self.data['footer']),

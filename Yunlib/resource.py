@@ -27,14 +27,19 @@ RichMenuAreaSizeW = [700,700,530]
 RichMenuAreaSizeH = [843,843,843]
 RichMenuSize = linebot.models.RichMenuSize(width=RichMenuSizeX, height=RichMenuSizeY)
 
+Postback_ViewBooks = "ViewBooks"
+Postback_NotifyEnable = "EnableNotify"
+Postback_NotifyDisable = "DisableNotify"
+Postback_AboutUs = "AboutUs"
+
 NotifyMenuName = "NotfiyMenu"
 NotifyMenuLabels = [ "檢視我的書目", "到期提示已啟動", "About" ]
-NotifyMenuData = [ "ViewBooks", "DisableNotify", "AboutUs" ]
+NotifyMenuData = [ Postback_ViewBooks, Postback_NotifyDisable, Postback_AboutUs ]
 NotifyMenuText = ["查看我借的書", "關閉到期提示", "關於你們"]
 
 NNotifyMenuName = "NotifyDisabledMenu"
 NNotifyMenuLabels = [ "檢視我的書目", "到期提示已關閉", "About" ]
-NNotifyMenuData = [ "ViewBooks", "EnableNotify", "AboutUs" ]
+NNotifyMenuData = [ Postback_ViewBooks, Postback_NotifyEnable, Postback_AboutUs ]
 NNotifyMenuText = ["查看我借的書", "開啟到期提示", "關於你們"]
 
 DB_USERINFO_TNAME = "userinfo"
