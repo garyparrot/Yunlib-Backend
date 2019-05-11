@@ -13,7 +13,7 @@ To set this up, You should it one and name it './config/resource.ini'
 
 """
 import linebot, configparser, os
-
+from .Singleton import Singleton
 
 E_RUNNING_ENVIRONMENT_DYNO = "DYNO"
 E_RUNNING_ENVIRONMENT_MACHINE = "MACHINE"
@@ -58,12 +58,11 @@ F_DB_PORT = "DB_PORT"
 F_DB_PASSWORD = "DB_PASSWORD"
 
 
-
-class ConfigLoader:
+class ConfigLoader(metaclass=Singleton):
 
     def __init__(self, config_file):
         self.parser = configparser.ConfigParser()
-        self.load_config(config_file)
+        self._load_config(config_file)
 
     def fetch_config(self,config_name):
         if config_name in os.environ:
@@ -71,7 +70,7 @@ class ConfigLoader:
         else:
             return self.parser['Setting'][config_name]
 
-    def load_config(self ,config_path = './resource.ini'):
+    def _load_config(self ,config_path = './resource.ini'):
         if os.path.isfile(config_path):
             self.parser.read(config_path)
 
@@ -83,4 +82,5 @@ class ConfigLoader:
                 "host"      : self.fetch_config(F_DB_HOST),
                 "port"      : self.fetch_config(F_DB_PORT) 
                 }
+
 
