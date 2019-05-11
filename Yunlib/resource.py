@@ -1,17 +1,3 @@
-"""
-
-This file control how this application gettting user defined resource/data.
-We will first look up environment variable, then check the './config/resource.ini' file.
-
-If you are running this app on your machine, better config setting via ini file.
-If you are running this app on heroku, better config setting via environment var.
-
-Example content of 'example_resource.ini' file already locate in this directory
-To set this up, You should it one and name it './config/resource.ini'
-
-** These setting should be readonly during runtime, do not modify their values **
-
-"""
 import linebot, configparser, os
 from .Singleton import Singleton
 
