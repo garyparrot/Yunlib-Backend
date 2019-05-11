@@ -29,9 +29,15 @@ class UnitTest(unittest.TestCase):
         self.assertTrue(query[2] == user['notify'])
         self.assertTrue(query[3] == user['note'])
 
+        print(self.database.userinfo.query_by_id(user['user_id']))
         trigger1 = self.database.userinfo.is_notify_on(user['user_id'])
+        print(self.database.userinfo.query_by_id(user['user_id']))
+        self.assertTrue(self.database.userinfo.is_notify_on(user['user_id']))
         self.database.userinfo.update_notify(user['user_id'], not trigger1)
+        self.assertFalse(self.database.userinfo.is_notify_on(user['user_id']))
+        print(self.database.userinfo.query_by_id(user['user_id']))
         trigger2 = self.database.userinfo.is_notify_on(user['user_id'])
+        print(self.database.userinfo.query_by_id(user['user_id']))
         self.assertFalse(trigger1 == trigger2)
 
         self.database.userinfo.delete(user['user_id'])
