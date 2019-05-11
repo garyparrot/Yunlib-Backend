@@ -2,7 +2,7 @@ from Yunlib.Yunlib import Yunlib as YunlibMain
 import Yunlib.resource as resource
 from linebot.models import *
 
-example = {
+BookListExample = {
     "main_title": "B10617008的書目資料",
     "contents": [
         {
@@ -30,29 +30,38 @@ example = {
     "footer": {"left":"有3本書即將到期", "right":"處理時間:XXX-XX-XX"}
 }
 
+# Yunlib - The module for communicate between server and user
 app = YunlibMain('./resource.ini')
 
 @app.onTextReceivce
 def say_it(user_id, reply_token, text):
+    """ Trigger this function when user sending text """
     if text.startswith('repeat '):
         app.replyText(reply_token,text)
 
 @app.onPostbackReceive
 def postback(user_id, reply_token, data):
+    """ Trigger this function when user sending postback(for example, press button) """
+    # If user press View_Books button
     if data == resource.Postback_ViewBooks:
-        app.replyBookList(reply_token,example)
+        app.replyBookList(reply_token,BookListExample)
+    # If user press AboutUs button
     elif data == resource.Postback_AboutUs:
-        app.pushBookList(user_id,example)
+        app.pushBookList(user_id,BookListExample)
+    # If user press Enable_Notification button
     elif data == resource.Postback_NotifyEnable:
         app.updateNotificationSetting(user_id, True)
+    # If user press Disable_Notification button
     elif data == resource.Postback_NotifyDisable:
         app.updateNotificationSetting(user_id, False)
 
 @app.onUserFollow
 def say_welcome(user_id, reply_token):
+    """ Trigger this function when user follow this bot """
     app.pushText(user_id,"Welcome to hell!")
 
 @app.onUserUnfollow
 def shit(user_id):
+    """ Trigger this function when user block this bot """
     print("user", user_id, "doesn't love you.")
 
