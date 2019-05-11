@@ -28,6 +28,8 @@ NNotifyMenuLabels = [ "檢視我的書目", "到期提示已關閉", "About" ]
 NNotifyMenuData = [ Postback_ViewBooks, Postback_NotifyEnable, Postback_AboutUs ]
 NNotifyMenuText = ["查看我借的書", "開啟到期提示", "關於你們"]
 
+Render_EmptyBookListHint = "你的書櫃是空的 :)"
+
 DB_USERINFO_TNAME = "userinfo"
 
 # WARNING: THIS IS NOT THE PLACE WHERE YOU CONFIG YOUR PERSONAL DATA

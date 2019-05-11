@@ -1,4 +1,6 @@
 from linebot.models import *
+import Yunlib.resource as resource
+
 
 footer_style = { "separator": True }
 main_title_style = { 
@@ -22,6 +24,12 @@ section_subtitle_style = {
         "align": "end",
         "gravity": "bottom",
         "flex": 3
+        }
+empty_hint_style = {
+        "color": "#555555",
+        "margin":  "xxl",
+        "size": "sm",
+        "align": "center"
         }
 section_booklist_style = { 
         "layout": "vertical",
@@ -84,10 +92,16 @@ class BookListRender:
     def RenderBody(self):
         contents = [self.RenderTitle(self.data)]
 
-        for section in self.data['contents']:
-            contents.append(self.RenderSection(section))
+        if len(self.data['contents']) > 0:
+            for section in self.data['contents']:
+                contents.append(self.RenderSection(section))
+        else:
+            contents.append(self.RenderEmptyHint())
 
         return BoxComponent(contents = contents, layout="vertical")
+
+    def RenderEmptyHint(self):
+        return TextComponent(text=resource.Render_EmptyBookListHint, **empty_hint_style)
 
     def RenderTitle(self, data):
         return TextComponent(text=data["main_title"],**main_title_style )

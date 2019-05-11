@@ -2,6 +2,11 @@ from Yunlib.Yunlib import Yunlib as YunlibMain
 import Yunlib.resource as resource
 from linebot.models import *
 
+EmptyBookList = {
+    "main_title": "B10617008的書目資料",
+    "contents": [ ],
+    "footer": {"left":"Yunlib", "right":"處理時間:XXX-XX-XX"}
+}
 BookListExample = {
     "main_title": "B10617008的書目資料",
     "contents": [
@@ -47,7 +52,7 @@ def postback(user_id, reply_token, data):
         app.replyBookList(reply_token,BookListExample)
     # If user press AboutUs button
     elif data == resource.Postback_AboutUs:
-        app.pushBookList(user_id,BookListExample)
+        app.pushBookList(user_id,EmptyBookList)
     # If user press Enable_Notification button
     elif data == resource.Postback_NotifyEnable:
         app.updateNotificationSetting(user_id, True)
