@@ -2,7 +2,7 @@ import flask
 from flask import Flask, request, abort
 
 from linebot import LineBotApi
-from linebot.models import MessageEvent, FollowEvent, PostbackEvent
+from linebot.models import MessageEvent, FollowEvent, PostbackEvent, UnfollowEvent
 from linebot.models import TextMessage
 from linebot.models import TextSendMessage, FlexSendMessage
 from linebot.exceptions import InvalidSignatureError
@@ -35,6 +35,33 @@ class Yunlib:
             return func(event.source.user_id, event.reply_token, event.message.text)
 
         return func
+
+    def onPostbackReceive(self,func):
+
+        @self.handler.add(PostbackEvent)
+        def event_wrapper(event):
+            return func(event.source.user_id, event.reply_token, event.postback.data)
+
+        return func
+    def onUserFollow(self,func):
+
+        @self.handler.add(FollowEvent)
+        def event_wrapper(event):
+            return func(event.source.user_id, event.reply_token)
+
+        return func
+    def onUserUnfollow(self,func):
+
+        @self.handler.add(UnfollowEvent)
+        def event_wrapper(event):
+            return func(event.source.user_id)
+
+        return func
+    #  TODO: garyparrot # Implement PushTextMessage
+    #  TODO: garyparrot # Implement PushBookList
+    #  TODO: garyparrot # Implement ReplyTextMessage
+    #  TODO: garyparrot # Implement ReplyBookList
+    #  TODO: garyparrot # Implement ChangeUserRichMenu
 
 class RequestUrl:
     @classmethod
