@@ -44,6 +44,8 @@ F_DB_DATABASE = "DB_DATABASE"
 F_DB_USER = "DB_USER"
 F_DB_PORT = "DB_PORT"
 F_DB_PASSWORD = "DB_PASSWORD"
+F_DB_TYPE = "DB_TYPE"
+F_DB_NAME = "DB_NAME"
 
 
 class ConfigLoader(metaclass=Singleton):
@@ -55,20 +57,28 @@ class ConfigLoader(metaclass=Singleton):
     def fetch_config(self,config_name):
         if config_name in os.environ:
             return os.environ[config_name]
-        else:
+        elif self.parser.has_option('Setting', config_name):
             return self.parser['Setting'][config_name]
+        else:
+            return None
 
     def _load_config(self ,config_path = './resource.ini'):
         if os.path.isfile(config_path):
             self.parser.read(config_path)
 
     def db_access_config(self):
-        return {
-                "dbname"    : self.fetch_config(F_DB_DATABASE),
-                "user"      : self.fetch_config(F_DB_USER),
-                "password"  : self.fetch_config(F_DB_PASSWORD),
-                "host"      : self.fetch_config(F_DB_HOST),
-                "port"      : self.fetch_config(F_DB_PORT) 
+        ini_options = {
+                "db_type"   : F_DB_TYPE,
+                "database"  : F_DB_NAME,
+                "dbname"    : F_DB_DATABASE,
+                "user"      : F_DB_USER,
+                "password"  : F_DB_PASSWORD,
+                "host"      : F_DB_HOST,
+                "port"      : F_DB_PORT 
                 }
+        config = {}
 
+        for rel, opt in ini_options.items():
+            config[rel] = self.fetch_config(opt)
 
+        return config

@@ -1,4 +1,6 @@
 __pycache__
+temp.py
+db.sqlite3
 bin
 lib
 lib64
