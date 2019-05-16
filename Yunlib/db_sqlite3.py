@@ -94,6 +94,7 @@ class db_userinfo:
     def query_by_id(self,user_id):
         """
         Query userinfo by user id.
+        If no user match the specified id, a None is return instead.
 
         :param user_id: The user id for query
         :returns: A tuple contain specified user's userinfo
