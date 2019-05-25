@@ -3,10 +3,25 @@ import psycopg2
 def db_action(func):
     """Decorator function to make sure the connect is up running"""
 
+    def create_userinfo(self):
+        cursor = self._connection.cursor()
+        cursor.execute("""CREATE TABLE userinfo
+                    (
+                        id SERIAL PRIMARY KEY NOT NULL,
+                        user_id TEXT NOT NULL UNIQUE,
+                        notify BOOLEAN NOT NULL DEFAULT true,
+                        note TEXT
+                    );""")
+        self._connection.commit()
+        return True
+
     def test_connection(self):
         with self._connection.cursor() as cursor:
-            cursor.execute("SELECT true")
-            return cursor.fetchone()[0] == True
+            cursor.execute("SELECT to_regclass('public.userinfo')")
+            if cursor.fetchone()[0] == 'userinfo':
+                return True
+            else:
+                return create_userinfo(self)
 
     def wrapper(*args, **kargs):
         self = args[0]
