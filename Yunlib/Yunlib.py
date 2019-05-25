@@ -12,6 +12,7 @@ from .db import db
 from . import resource 
 from .resource import ConfigLoader
 from .models.BookList_Render import BookListRender
+from .Awake import send_awake_request
 
 class Yunlib:
 
@@ -27,7 +28,11 @@ class Yunlib:
 
         self.app = Flask(__name__)
         self.app.add_url_rule('/', view_func=RequestUrl.auth_index(self.handler), methods=['POST'])
-        self.app.add_url_rule('/touchme', view_func=RequestUrl.touch, methods=['GET'])
+        
+        # Only dyno would send this request to server 
+        if resource.E_RUNNING_ENVIRONMENT_DYNO == self.cloader.fetch_config(resource.F_RUNNING_ENVIRONMENT):
+            self.app.add_url_rule('/touchme', view_func=RequestUrl.touch, methods=['GET'])
+            send_awake_request()
 
     def onTextReceivce(self,func):
 
@@ -110,5 +115,6 @@ class RequestUrl:
 
     @classmethod
     def touch(cls):
+        send_awake_request()
         return flask.Response('ok', 200)
 

@@ -8,3 +8,4 @@ include
 share
 pyvenv.cfg
 resource.ini
+.vscode
