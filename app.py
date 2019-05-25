@@ -37,6 +37,7 @@ BookListExample = {
 
 # Yunlib - The module for communicate between server and user
 app = YunlibMain('./resource.ini')
+flask_app = app.app
 
 @app.onTextReceivce
 def say_it(user_id, reply_token, text):
