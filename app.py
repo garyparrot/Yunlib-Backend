@@ -2,6 +2,11 @@ from Yunlib.Yunlib import Yunlib as YunlibMain
 import Yunlib.resource as resource
 from linebot.models import *
 
+EmptyBookList = {
+    "main_title": "B10617008的書目資料",
+    "contents": [ ],
+    "footer": {"left":"Yunlib", "right":"處理時間:XXX-XX-XX"}
+}
 BookListExample = {
     "main_title": "B10617008的書目資料",
     "contents": [
@@ -47,7 +52,7 @@ def postback(user_id, reply_token, data):
         app.replyBookList(reply_token,BookListExample)
     # If user press AboutUs button
     elif data == resource.Postback_AboutUs:
-        app.pushBookList(user_id,BookListExample)
+        app.pushBookList(user_id,EmptyBookList)
     # If user press Enable_Notification button
     elif data == resource.Postback_NotifyEnable:
         app.updateNotificationSetting(user_id, True)
@@ -59,6 +64,12 @@ def postback(user_id, reply_token, data):
 def say_welcome(user_id, reply_token):
     """ Trigger this function when user follow this bot """
     app.pushText(user_id,"Welcome to hell!")
+    if app.database.userinfo.query_by_id(user_id) == None:
+        app.database.userinfo.insert(user_id)
+        app.updateNotificationSetting(user_id, True)
+    else:
+        old_setting = app.database.userinfo.is_notify_on(user_id)
+        app.updateNotificationSetting(user_id, old_setting)
 
 @app.onUserUnfollow
 def shit(user_id):

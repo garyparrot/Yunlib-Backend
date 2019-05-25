@@ -1,4 +1,6 @@
 __pycache__
+temp.py
+db.sqlite3
 bin
 lib
 lib64
@@ -6,3 +8,4 @@ include
 share
 pyvenv.cfg
 resource.ini
+.vscode
