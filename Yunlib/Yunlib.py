@@ -82,7 +82,7 @@ class Yunlib:
 
     def changeRichMenu(self, user_id, menu_name):
         if not hasattr(self,'_rich_menus'):
-            self._rich_menus = self.getRichMenus()
+            self._rich_menus = self.linebot.get_rich_menu_list()
 
         target = [i for i in self._rich_menus  if i.name == menu_name][0]
         self.linebot.link_rich_menu_to_user(user_id, target.rich_menu_id)
@@ -94,16 +94,6 @@ class Yunlib:
             self.changeRichMenu(user_id, menu_name)
         except Exception as e:
             raise e
-
-    def getRichMenus(self):
-        res = self.linebot.get_rich_menu_list()
-
-        if len(res) != 0:
-            return res
-        
-        init_menu(self.linebot)
-
-        return self.linebot.get_rich_menu_list()
 
 
 class RequestUrl:

@@ -1,5 +1,6 @@
 from . import resource as resource
 from .resource import ConfigLoader
+from linebot.models import *
 
 def init_menu(linebot):
     """
