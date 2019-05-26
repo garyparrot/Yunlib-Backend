@@ -13,8 +13,9 @@ app = Yunlib('./resource.ini')      # 初始化Yunlib, 載入 resource.ini 設�
 @app.onTextReceivce
 def say_it(user_id, reply_token, text):
     app.replyText(reply_token,text)
-
 ```
+
+更完整的範例可以參考 app.py 檔案
 
 ## doc
 
@@ -22,10 +23,10 @@ def say_it(user_id, reply_token, text):
 
 | method | function |
 | --------------- | -------- |
-| .onTextReceive | decorator, 收到文字訊息時觸發對應 method |
-| .onPostbackReceive | decorator, 收到Postback時觸發 method |
-| .onUserFollow | decorator, 被follow時觸發 |
-| .onUserUnfollow | decorator, 被解除追蹤觸發 |
+| .onTextReceive() | decorator, 收到文字訊息時觸發對應 method |
+| .onPostbackReceive() | decorator, 收到Postback時觸發 method |
+| .onUserFollow() | decorator, 被follow時觸發 |
+| .onUserUnfollow() | decorator, 被解除追蹤觸發 |
 | .pushText(user_id, msg) | 主動推送訊息至user |
 | .pushBookList(user_id, booklist, alt_text='[Book list]' | 主動推送Booklist |
 | .replyText(reply_token, message) | 對user回文字訊息 |
