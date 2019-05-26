@@ -72,7 +72,7 @@ def say_it(user_id, reply_token, text):
 
 ### Booklist 的範例格式
 
-```json
+```python
 {
     "main_title": "sb's的書目資料",
     "contents": [
