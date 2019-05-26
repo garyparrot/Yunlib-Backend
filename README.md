@@ -101,5 +101,4 @@ def say_it(user_id, reply_token, text):
     "footer": {"left":"有3本書即將到期", "right":"處理時間:XXX-XX-XX"}
 }
 ```
-
-![./misc/booklist.jfif](book list result)
+![Book list](./misc/booklist.jfif)
