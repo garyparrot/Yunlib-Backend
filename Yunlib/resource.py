@@ -54,6 +54,14 @@ class ConfigLoader(metaclass=Singleton):
         self.parser = configparser.ConfigParser()
         self._load_config(config_file)
 
+    @property
+    def library_id(self):
+        return self.fetch_config(F_ACCOUNT_ID)
+
+    @property
+    def library_pwd(self):
+        return self.fetch_config(F_ACCOUNT_PASSWORD)
+
     def fetch_config(self,config_name):
         if config_name in os.environ:
             return os.environ[config_name]
