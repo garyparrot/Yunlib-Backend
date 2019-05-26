@@ -75,5 +75,5 @@ def say_welcome(user_id, reply_token):
 @app.onUserUnfollow
 def shit(user_id):
     """ Trigger this function when user block this bot """
-    print("user", user_id, "doesn't love you.")
+    print("user", user_id, "doesn't loves you.")
 
