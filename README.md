@@ -1,6 +1,6 @@
 # Yunlib BackEnd
 
-[設定教學](https://hackmd.io/s/BkWQymXoV)
+[設定教學](https://hackmd.io/@30vhEV7FQECcWeCF1eAN5A/SktUlEHAE)
 
 ## Usage
 
