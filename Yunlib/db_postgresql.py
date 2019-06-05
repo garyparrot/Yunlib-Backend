@@ -80,7 +80,7 @@ class db_userinfo:
             c.execute("SELECT * FROM userinfo")
             return c.fetchall()
 
-    def insert(self,user_id, notify = True, note = None):
+    def insert(self,user_id, notify = True, note = 0):
         """
         Insert new userinfo.
 
@@ -104,6 +104,11 @@ class db_userinfo:
         with self.get_connection().cursor() as c:
             c.execute('SELECT * FROM userinfo WHERE user_id = %s', [user_id])
             return c.fetchone()
+
+    def update_note(self,user_id, note):
+        with self.get_connection().cursor() as c:
+            c.execute('UPDATE userinfo SET note = %s WHERE user_id = %s', [note, user_id])
+        self.get_connection().commit()
 
     def update_notify(self,user_id, value):
         """

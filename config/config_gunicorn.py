@@ -1,5 +1,21 @@
 import os, multiprocessing
+from linebot import LineBotApi
+from Yunlib.resource import ConfigLoader
+from Yunlib import resource
+from Yunlib import menu
+from threading import Thread
+import time
+
 # Sample Gunicorn configuration file.
+def on_starting(server):
+
+    #test if menu is on
+    cloader = ConfigLoader('./resource.ini')
+    linebot = LineBotApi(cloader.fetch_config(resource.F_CHANNEL_ACCESS_TOKEN))
+
+    if 'RESET_MENU' in os.environ or len(linebot.get_rich_menu_list()) == 0:
+        print("Initialize rich menus.")
+        menu.init_menu(linebot)
 
 #
 # Server socket
@@ -66,7 +82,7 @@ backlog = 2048
 #       A positive integer. Generally set in the 1-5 seconds range.
 #
 
-workers = multiprocessing.cpu_count()
+workers = 1 #multiprocessing.cpu_count()
 worker_class = 'sync'
 worker_connections = 1000
 timeout = 60

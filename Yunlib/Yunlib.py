@@ -8,6 +8,7 @@ from linebot.models import TextSendMessage, FlexSendMessage
 from linebot.exceptions import InvalidSignatureError
 from linebot import WebhookHandler
 
+from .menu import init_menu
 from .db import db
 from . import resource 
 from .resource import ConfigLoader

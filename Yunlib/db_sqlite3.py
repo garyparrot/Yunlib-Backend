@@ -78,7 +78,7 @@ class db_userinfo:
         c.execute("SELECT * FROM userinfo")
         return c.fetchall()
 
-    def insert(self,user_id, notify = True, note = None):
+    def insert(self,user_id, notify = True, note = 0):
         """
         Insert new userinfo.
 
