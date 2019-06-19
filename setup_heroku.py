@@ -1,10 +1,10 @@
-import sys, os, subprocess, re, hashlib
+import sys, os, subprocess, re, hashlib, getpass
 
 # executable
 if sys.platform == 'win32':
     heroku = 'heroku.cmd'
 elif sys.platform == 'linux':
-    heroku = 'heorku'
+    heroku = 'heroku'
 else:
     heroku = 'heroku'
 
@@ -14,19 +14,17 @@ if subprocess.run([heroku, '--version']).returncode != 0:
     exit(1)
 
 print("Encoding: ", sys.stdout.encoding)
+app_name    = input("輸入你的Application name: ")
 account_id  = input('輸入你的圖書館證號: ')
-account_pwd = input('輸入你的圖書館密碼: ')
-line_token  = input('輸入你的Line Access token: ')
-line_secret = input("輸入你的Line Secret: ")
+account_pwd = getpass.getpass('輸入你的圖書館密碼: ')
+line_token  = getpass.getpass('輸入你的Line Access token: ')
+line_secret = getpass.getpass("輸入你的Line Secret: ")
 
 # login heroku
 subprocess.run([heroku, 'login'])
 
-sha256_pwd = hashlib.sha256(account_pwd.encode('UTF-8')).hexdigest()[:8]
-content = "SHA256" + sha256_pwd[:4] + account_id + "_FUCK_PYTHON_" + sha256_pwd[4:] + "_owo_" + account_id
-sha256 = hashlib.sha256(content.encode('UTF-8')).hexdigest()[:9]
-appname = 'yunlib-bot-' + sha256
-dbname = 'yunlib-bot-db-' + sha256
+appname = 'yunlib-bot' + app_name
+dbname = 'yunlib-bot-db-' + app_name 
 
 subprocess.run([heroku, 'create',appname])
 subprocess.run([heroku, 'labs:enable', 'runtime-dyno-metadata','-a',appname])
@@ -71,4 +69,4 @@ subprocess.run(['git', 'push', 'heroku', 'master'])
 domain = subprocess.check_output([heroku, 'domains', '--app', appname]).decode(sys.stdout.encoding).split('\n')[1]
 print("https://%s" % domain)
 print("上述網址為你的Heroku app的domain name") 
-print("設定這個網址到你的line botwebhook")
+print("設定這個網址到你的line bot webhook")
