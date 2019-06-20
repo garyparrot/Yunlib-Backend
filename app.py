@@ -36,7 +36,6 @@ def create_booklist(user,booklist):
     def parse_content(booklist):
         res = {}
         for book in booklist:
-            print(book)
             due = datetime.datetime.fromtimestamp(time.mktime(book['due']),tz=UTCPlus8())
             time_str = "%d/%d/%d" % (due.year-1911, due.month, due.day)
             urgent = (due - datetime.datetime.now(tz=UTCPlus8())).days <= 6

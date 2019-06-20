@@ -40,7 +40,6 @@ def answer(rno,pwd):
     
     #print(r2.text)
     soup=BeautifulSoup(r2.text,"html.parser")
-    print(soup)
     
     u = soup.select("html frame") #a標籤
     

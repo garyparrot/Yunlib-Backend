@@ -23,7 +23,7 @@ line_secret = getpass.getpass("輸入你的Line Secret: ")
 # login heroku
 subprocess.run([heroku, 'login'])
 
-appname = 'yunlib-bot' + app_name
+appname = 'yunlib-bot-' + app_name
 dbname = 'yunlib-bot-db-' + app_name 
 
 subprocess.run([heroku, 'create',appname])
